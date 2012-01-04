@@ -80,18 +80,20 @@
     
     if(detailControler != self.currentDetailController)
     {
+        // swap button in detail controller
         [self.currentDetailController.navigationItem setLeftBarButtonItem:nil animated:NO];
         self.currentDetailController = detailControler;
+        [self.currentDetailController.navigationItem setLeftBarButtonItem:self.masterBarButtonItem animated:NO];
         
+        // update controllers in splitview
         UIViewController* tabBarController = [self.splitViewController.viewControllers objectAtIndex:0];
-        
         self.splitViewController.viewControllers = [NSArray arrayWithObjects:tabBarController,detailRootController, nil];
         
         // replace the passthrough views with current detail navigationbar
         if([self.masterPopoverController isPopoverVisible]){
             self.masterPopoverController.passthroughViews = [NSArray arrayWithObject:detailRootController.navigationBar];
         }
-    }        
+    }      
 }
 
 @end
